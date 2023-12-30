@@ -38,16 +38,16 @@ public class UserService {
         this.authenticationManager = authenticationManager;
     }
     public AuthResponse register(AuthRequest authRequest) {
-        if(authRequest == null || authRequest.getUsername().equals("") || authRequest.getPassword().equals("")) {
-            throw new UsernameNotFoundException("Invalid authRequest!");
-        }
+        System.out.println(authRequest);
         User user = User.builder()
                 .username(authRequest.getUsername())
                 .password(passwordEncoder.encode(authRequest.getPassword()))
                 .build();
+        System.out.println(user);
         AuthResponse authResponse = AuthResponse.builder()
                 .jwt(jwtUtil.generateJWT(user))
                 .build();
+        System.out.println(authResponse);
         userRepository.save(user);
         return authResponse;
     }

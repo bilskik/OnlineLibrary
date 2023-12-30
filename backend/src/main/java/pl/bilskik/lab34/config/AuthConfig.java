@@ -31,6 +31,7 @@ public class AuthConfig {
     public UserDetailsService userDetailsService() {
         return username -> {
             Optional<User> user = userRepository.findByUsername(username);
+            System.out.println(user.isEmpty());
             if(user.isEmpty()) {
                 throw new UsernameNotFoundException("Could not find user!");
             } else {

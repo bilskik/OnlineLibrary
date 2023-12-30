@@ -31,9 +31,6 @@ public class BookService {
 
     public List<Book> getAllBooks() {
         List<Book> books = bookRepository.findAll();
-        if(books.isEmpty()) {
-            throw new NoSuchElementException("There is no books in DB!");
-        }
         return books;
     }
 
