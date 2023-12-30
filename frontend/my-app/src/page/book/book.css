@@ -1,0 +1,63 @@
+.libr-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fd;
+}
+.book-table {
+    color : white;
+    background-color : #6807f9;
+    margin: 2% 15%;
+}
+.book-table th {
+    text-align: center;
+    padding: 20px;
+}
+.book-table td {
+    color: black;
+    text-align: center;
+    padding: 20px 0px;
+}
+.gray {
+    background-color: #f8f9fd;
+}
+.white {
+    background-color: white;
+}
+.create-book {
+    align-self: center;
+}
+button {
+    color : white;
+    background-color: var(--default-btn-color);
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 5px 20px;
+    border: 1px solid black;
+    cursor: pointer;
+    transition: 0.25s;
+}
+button:hover {
+    background-color: var(--hover-btn-color);
+}
+@media screen and (max-width: 550px) {
+    .book-table {
+        font-size: 1rem;
+        margin: 2% 7.5%;
+    }
+    .book-table th {
+        padding: 15px;
+    }
+    .book-table td {
+        padding: 15px;
+    }
+    button {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+    }
+}
+@media screen and (max-width: 400px) {
+    .book-table {
+        margin: 2% 5%;
+    }
+}

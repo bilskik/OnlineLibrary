@@ -1,0 +1,39 @@
+.navbar {
+    padding : 1% 5%; 
+    width: 100vw;
+    background-color: var(--bckg-color);
+    display: flex;
+    flex-direction: row;
+}
+.library-text {
+    color : var(--login-color);
+    cursor: pointer;
+}
+.logout {
+    font-size: 1rem;
+    font-weight: bold;
+    color:  var(--login-color);
+    padding: 13px 13px;
+    background-color: var(--default-btn-color);
+    border: 1px solid black;
+    cursor: pointer;
+    transition: 0.25s;
+}
+.logout:hover {
+    background-color: var(--hover-btn-color);
+}
+
+@media screen and (max-width: 550px) {
+    .navbar {
+        min-height: 60px;
+    }
+    .logout {
+        font-size: 0.9rem;
+        padding: 6px 13px;
+    }
+}
+@media screen and (max-width: 400px) {
+    .book-table {
+        margin: 2% 5%;
+    }
+}

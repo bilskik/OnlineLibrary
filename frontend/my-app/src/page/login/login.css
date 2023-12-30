@@ -1,0 +1,107 @@
+.login-container {
+    font-family: 'Noto Sans';
+    position: relative;
+    height: 100vh;
+    background-color: var(--bckg-color);
+}
+.form-container {
+    font-size : 22px;
+    font-weight: bold;
+    height: 60%;
+    width: 60%;
+    max-width: 600px;
+    border: 1px solid black;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    background-color: var( --login-color);
+}
+.form-container h2 {
+    font-weight: bold;
+    width: 80%;
+    margin: 0 auto;
+}
+.form-group-user {
+    font-size : 1.2rem;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 5px;
+}
+.form-group-user label {
+    margin-bottom: 5px;
+}
+.form-group-password {
+    font-size : 1.2rem;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+}
+.form-group-password label {
+    margin-bottom: 5px;
+}
+.form-container input {
+    font-size: 1.2rem;
+    padding: 13px 10px;
+    border: 1px solid black;
+    outline: none;
+}
+.form-container input:focus {
+    border: 1px solid var(--bckg-color);
+}
+.register-acc {
+    font-weight: normal;
+    text-align: end;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+.register-acc span {
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 5px;
+}
+.register-acc span:hover {
+    text-decoration: underline;
+}
+.form-container button {
+    font-size: 1rem;
+    font-weight: bold;
+    color:  var(--white-clr);
+    width: 80%;
+    margin:0 auto;
+    margin-bottom: 15px;
+    padding: 13px 0px;
+    background-color: var(--default-btn-color);
+    border: 1px solid black;
+    cursor: pointer;
+    transition: 0.25s;
+}
+.form-container button:hover {
+    background-color: var(--hover-btn-color);
+}
+.err-msg {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 5px;
+    color : red;
+}
+@media screen and (max-width: 650px) {
+    .form-container {
+        width: 85%;
+    }
+    .form-container input, .form-container button {
+        padding: 8px 10px;
+    }
+    .register-acc {
+        font-size: 0.9rem;
+    }
+}
