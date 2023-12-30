@@ -50,19 +50,6 @@ public class SecurityConfig {
                 })
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .cors(withDefaults())
                 .build();
     }
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        var conf = new CorsConfiguration();
-//        conf.setAllowCredentials(true);
-//        conf.addAllowedOrigin("http://localhost:3000");
-//        conf.setAllowedMethods(List.of("GET", "POST", "DELETE", "PUT", "PATCH"));
-//        conf.addAllowedHeader("*");
-//        var source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", conf);
-//        return source;
-//    }
-
 }

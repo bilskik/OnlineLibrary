@@ -1,5 +1,7 @@
 package pl.bilskik.lab34.service;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import pl.bilskik.lab34.data.BookDTO;
 import pl.bilskik.lab34.entity.Book;
 import pl.bilskik.lab34.repository.BookRepository;
 
@@ -10,51 +12,53 @@ import java.util.Optional;
 @Service
 public class BookService {
 
-    private BookRepository bookRepository;
-    public BookService(BookRepository bookRepository) {
+    private final BookRepository bookRepository;
+    private final ModelMapper modelMapper;
+
+    public BookService(BookRepository bookRepository, ModelMapper modelMapper) {
         this.bookRepository = bookRepository;
+        this.modelMapper = modelMapper;
     }
+
     public Book getBookById(Long bookId) {
-        if(bookId != null) {
-            Optional<Book> book = bookRepository.findById(bookId);
-            if(book.isPresent()) {
-                return book.get();
-            } else {
-                throw new NoSuchElementException("Book with givenId doesnt exist!");
-            }
+        Optional<Book> book = bookRepository.findById(bookId);
+        if(book.isPresent()) {
+            return book.get();
         } else {
-            throw new NoSuchElementException("ProductId is Null!");
+            throw new NoSuchElementException("There is no book with this ID!");
         }
     }
 
     public List<Book> getAllBooks() {
         List<Book> books = bookRepository.findAll();
-        if(books == null) {
-            throw new NoSuchElementException("There is no products in DB!");
+        if(books.isEmpty()) {
+            throw new NoSuchElementException("There is no books in DB!");
         }
         return books;
     }
 
-    public Book saveBook(Book book) {
+    public String saveBook(BookDTO bookdto) {
+        Book book = modelMapper.map(bookdto, Book.class);
         if(book != null) {
             bookRepository.save(book);
-            return book;
+            return "SAVED";
         } else {
             throw new NoSuchElementException("book is null!");
         }
     }
 
-    public Book updateBook(Book book) {
+    public String updateBook(BookDTO bookdto) {
+        Book book = modelMapper.map(bookdto, Book.class);
         if(book != null) {
             bookRepository.save(book);
-            return book;
+            return "UPDATED";
         } else {
             throw new NoSuchElementException("book is null!");
         }
     }
 
-    public Void deleteBookById(long bookId) {
+    public String deleteBookById(long bookId) {
         bookRepository.deleteById(bookId);
-        return null;
+        return "DELETED";
     }
 }

@@ -15,9 +15,11 @@ import java.util.Date;
 public class JwtUtil {
 
     private final static String SECRET= "566D597133743677397A24432646294A404E635166546A576E5A723475377821";
+
     public String removeBearerStartFromJwt(String authHeader) {
         return authHeader.substring(7);
     }
+
     public String extractUsername(String jwt) {
         return Jwts.parser()
                         .verifyWith(getSecretKey())

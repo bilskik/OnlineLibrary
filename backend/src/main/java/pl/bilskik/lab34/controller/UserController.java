@@ -1,6 +1,8 @@
 package pl.bilskik.lab34.controller;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,19 +21,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/test")
-    public String test() {
-//        return new ResponseEntity<>(userService.register(authRequest), HttpStatusCode.valueOf(200));
-        log.error("DZIALASZ?");
-        return "OK";
-    }
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody AuthRequest authRequest) {
-        return new ResponseEntity<>(userService.register(authRequest), HttpStatusCode.valueOf(200));
+    public ResponseEntity<AuthResponse> register(@RequestBody @Valid AuthRequest authRequest) {
+        return new ResponseEntity<>(userService.register(authRequest), HttpStatus.OK);
     }
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) {
-        return new ResponseEntity<>(userService.login(authRequest), HttpStatusCode.valueOf(200));
+    public ResponseEntity<AuthResponse> login(@RequestBody @Valid AuthRequest authRequest) {
+        return new ResponseEntity<>(userService.login(authRequest), HttpStatus.OK);
     }
 
 }

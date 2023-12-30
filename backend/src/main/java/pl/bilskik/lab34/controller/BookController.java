@@ -1,10 +1,13 @@
 package pl.bilskik.lab34.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.bilskik.lab34.data.BookDTO;
+import pl.bilskik.lab34.data.ResponseMessage;
 import pl.bilskik.lab34.entity.Book;
 import pl.bilskik.lab34.service.BookService;
 
@@ -21,24 +24,23 @@ public class BookController {
 
     @GetMapping("${books.bookId}")
     public  ResponseEntity<Book> getBookById(@PathVariable Long bookId) {
-        return new ResponseEntity<Book>(bookService.getBookById(bookId), HttpStatusCode.valueOf(200));
+        return new ResponseEntity<Book>(bookService.getBookById(bookId), HttpStatus.OK);
     }
     @GetMapping()
     public  ResponseEntity<List<Book>> getAllBooks() {
-        return new ResponseEntity<List<Book>>(bookService.getAllBooks(), HttpStatusCode.valueOf(200));
+        return new ResponseEntity<>(bookService.getAllBooks(), HttpStatus.OK);
     }
     @PostMapping
-    public  ResponseEntity<Book> saveBook(@RequestBody Book book) {
-        return new ResponseEntity<Book>(bookService.saveBook(book), HttpStatusCode.valueOf(201));
+    public  ResponseEntity<ResponseMessage> saveBook(@RequestBody @Valid BookDTO book) {
+        return new ResponseEntity<>(new ResponseMessage(bookService.saveBook(book)), HttpStatus.CREATED);
     }
     @PutMapping
-    public  ResponseEntity<Book> updateBook(@RequestBody Book book) {
-        return new ResponseEntity<>(bookService.updateBook(book), HttpStatusCode.valueOf(204));
+    public  ResponseEntity<ResponseMessage> updateBook(@RequestBody @Valid BookDTO book) {
+        return new ResponseEntity<>(new ResponseMessage(bookService.updateBook(book)), HttpStatus.OK);
     }
     @DeleteMapping("${books.bookId}")
-    public  ResponseEntity<Void> deleteBookById(@PathVariable long bookId) {
-        System.out.println(bookId);
-        return new ResponseEntity<Void>(bookService.deleteBookById(bookId), HttpStatusCode.valueOf(200));
+    public  ResponseEntity<ResponseMessage> deleteBookById(@PathVariable long bookId) {
+        return new ResponseEntity<>(new ResponseMessage(bookService.deleteBookById(bookId)), HttpStatus.OK);
     }
 
 
