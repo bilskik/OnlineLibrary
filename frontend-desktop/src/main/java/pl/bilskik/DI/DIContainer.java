@@ -7,9 +7,8 @@ public class DIContainer implements DI {
     private static DIContainer diContainer;
     private Map<Class<?>, Object> dependencies= new HashMap<>();
 
-    private DIContainer() {
+    private DIContainer() {}
 
-    }
     public static DIContainer getInstance() {
         if(diContainer == null) {
             diContainer = new DIContainer();

@@ -2,15 +2,25 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bilskik.viewmodel.WeatherController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="746.0" style="-fx-background-color: #f8f9fd;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.bilskik.viewmodel.LibraryController">
    <children>
-      <AnchorPane id="nav" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #101E27;">
+      <AnchorPane id="nav" prefHeight="50.0" prefWidth="746.0" style="-fx-background-color: #101E27;">
          <children>
             <Label layoutX="26.0" layoutY="14.0" prefHeight="20.0" prefWidth="57.0" style="-fx-text-fill: #fff; -fx-font-size: 16px;" text="Library" />
-            <Button fx:id="logout" layoutX="506.0" layoutY="11.0" mnemonicParsing="false" onAction="#onLogoutHandle" style="-fx-background-color: #F78F28; -fx-border-color: black; -fx-text-fill: white; -fx-font-weight: bold;" text="WYLOGUJ" />
+            <Button fx:id="logout" layoutX="638.0" layoutY="11.0" mnemonicParsing="false" onAction="#onLogoutHandle" style="-fx-background-color: #F78F28; -fx-border-color: black; -fx-text-fill: white; -fx-font-weight: bold;" text="WYLOGUJ" />
          </children>
       </AnchorPane>
+      <TableView fx:id="tableView" layoutX="139.0" layoutY="95.0" prefHeight="70.0" prefWidth="468.0">
+        <columns>
+          <TableColumn fx:id="authorCol" prefWidth="112.79998779296875" text="Author" />
+          <TableColumn fx:id="nameCol" prefWidth="104.79998779296875" text="Name" />
+            <TableColumn fx:id="editBtnCol" prefWidth="124.79998779296875" text="Edit" />
+            <TableColumn fx:id="deleteBtnCol" prefWidth="125.60000610351562" text="Delete" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

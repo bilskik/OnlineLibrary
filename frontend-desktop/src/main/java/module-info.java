@@ -9,5 +9,7 @@ module Lab1 {
     requires com.google.gson;
 
     exports pl.bilskik;
+    exports pl.bilskik.model;
     exports pl.bilskik.viewmodel;
+    exports pl.bilskik.viewmodel.service;
 }

@@ -19,12 +19,9 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javafx.stage.Stage;
 import org.json.JSONObject;
-import pl.bilskik.DI.DI;
 import pl.bilskik.DI.DIContainer;
 import pl.bilskik.model.Auth;
 
@@ -38,6 +35,7 @@ public class RegisterController {
     public TextField passwordField;
 
     private Auth auth;
+    private SceneSwitcher sceneSwitcher;
 
     private Stage stage;
     private Scene scene;
@@ -46,6 +44,7 @@ public class RegisterController {
     public RegisterController() {
         DIContainer di = DIContainer.getInstance();
         auth = di.resolve(Auth.class);
+        sceneSwitcher = di.resolve(SceneSwitcher.class);
     }
 
     public void onLoginHandle(ActionEvent event) throws URISyntaxException, IOException {
@@ -64,7 +63,6 @@ public class RegisterController {
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(res.body());
         jwtResolver(event, res);
     }
 
@@ -94,7 +92,7 @@ public class RegisterController {
             throw new IllegalAccessError("No Access to this resources!");
         } else {
             auth.setJwt(jwt);
-            switchScene(event);
+            sceneSwitcher.switchScene(event, "MainView.fxml");
         }
     }
 
