@@ -35,7 +35,7 @@ public class BookController {
         return new ResponseEntity<>(new ResponseMessage(bookService.saveBook(book)), HttpStatus.CREATED);
     }
     @PutMapping
-    public  ResponseEntity<ResponseMessage> updateBook(@RequestBody @Valid BookDTO book) {
+    public  ResponseEntity<ResponseMessage> updateBook(@RequestBody @Valid Book book) {
         return new ResponseEntity<>(new ResponseMessage(bookService.updateBook(book)), HttpStatus.OK);
     }
     @DeleteMapping("${books.bookId}")

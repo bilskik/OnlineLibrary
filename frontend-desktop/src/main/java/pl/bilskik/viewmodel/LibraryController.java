@@ -21,7 +21,6 @@ import pl.bilskik.viewmodel.service.TableService;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
@@ -38,6 +37,16 @@ public class LibraryController {
     public TextField bookNameInput;
     @FXML
     public TextField authorNameInput;
+    @FXML
+    public Label errAddNewBook;
+    @FXML
+    public Button editBookBtn;
+    @FXML
+    public TextField bookNameEditInput;
+    @FXML
+    public TextField bookAuthorEditInput;
+    @FXML
+    public Label errEditBook;
     @FXML
     public TableColumn<Book, String> authorCol;
     @FXML
@@ -82,8 +91,10 @@ public class LibraryController {
             nameCol.setCellValueFactory(new PropertyValueFactory<Book, String>("name"));
             nameCol.setStyle("-fx-alignment: CENTER;");
 
-            Callback<TableColumn<Book, Void>, TableCell<Book, Void>> cellFactoryEdit = tableService.getEditCellFactory();
-            Callback<TableColumn<Book, Void>, TableCell<Book, Void>> cellFactoryDelete = tableService.getDeleteCellFactory(data);
+            Callback<TableColumn<Book, Void>, TableCell<Book, Void>> cellFactoryEdit =
+                    tableService.getEditCellFactory(bookNameEditInput, bookAuthorEditInput, data);
+            Callback<TableColumn<Book, Void>, TableCell<Book, Void>> cellFactoryDelete =
+                    tableService.getDeleteCellFactory(data);
 
             editBtnCol.setCellFactory(cellFactoryEdit);
             deleteBtnCol.setCellFactory(cellFactoryDelete);
@@ -96,6 +107,12 @@ public class LibraryController {
         JSONObject jsonObject = new JSONObject();
         String name = bookNameInput.getText();
         String author = authorNameInput.getText();
+        if(name.equals("") || author.equals("")) {
+            errAddNewBook.setText("Invalid values - cannot be empty!");
+            return;
+        } else {
+            errAddNewBook.setText("");
+        }
         jsonObject.put("name", name);
         jsonObject.put("author", author);
         HttpResponse<String> res = null;
@@ -112,6 +129,49 @@ public class LibraryController {
                     data.add(b);
                 }
             }
+            bookNameInput.setText("");
+            authorNameInput.setText("");
+        }
+    }
+
+    public void onHandleEditBook(ActionEvent event) {
+        String name = bookNameEditInput.getText();
+        String author = bookAuthorEditInput.getText();
+        if(name.equals("") || author.equals("")) {
+            errEditBook.setText("Invalid values - cannot be empty!");
+            return;
+        } else {
+            errEditBook.setText("");
+        }
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name", name);
+        jsonObject.put("author", author);
+        Book bookToUpdate = null;
+        for(var b : data) {
+            if(b.isEdited()) {
+                bookToUpdate = b;
+                break;
+            }
+        }
+        HttpResponse<String> res = null;
+        try {
+            if(bookToUpdate != null) {
+                jsonObject.put("bookId", bookToUpdate.getBookId());
+                res = httpService.createPUTRequestWithJwt(new URI(serverUrl + "/book"),
+                        HttpRequest.BodyPublishers.ofString(jsonObject.toString()));
+            }
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        if(res != null && res.statusCode() == 200) {
+            data.remove(bookToUpdate);
+            bookToUpdate.setName(name);
+            bookToUpdate.setAuthor(author);
+            bookToUpdate.setEdited(false);
+            data.add(bookToUpdate);
+            bookNameEditInput.setText("");
+            bookAuthorEditInput.setText("");
         }
     }
 

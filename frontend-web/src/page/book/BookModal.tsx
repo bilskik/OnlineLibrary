@@ -57,11 +57,11 @@ const BookModal = ({ isShown , handleModalHide, triggerReRender, isEdit, setIsEd
             bookToPut.bookId= bookId
             await axios.put("/book", bookToPut, {
                 headers : headers
-            }).then(() => {
+                }).then(() => {
 
-            }).catch((err) => {
-                console.log(err)
-            })
+                }).catch((err) => {
+                    console.log(err)
+                })
             triggerReRender()
             setIsEdit()
             handleModalHide()

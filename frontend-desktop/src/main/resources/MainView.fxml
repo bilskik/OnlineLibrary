@@ -15,7 +15,7 @@
             <Button fx:id="logout" layoutX="638.0" layoutY="11.0" mnemonicParsing="false" onAction="#onLogoutHandle" style="-fx-background-color: #F78F28; -fx-border-color: black; -fx-text-fill: white; -fx-font-weight: bold;" text="WYLOGUJ" />
          </children>
       </AnchorPane>
-      <TableView fx:id="tableView" layoutX="34.0" layoutY="92.0" prefHeight="260.0" prefWidth="474.0" stylesheets="@table.css">
+      <TableView fx:id="tableView" layoutX="34.0" layoutY="92.0" prefHeight="361.0" prefWidth="474.0" stylesheets="@table.css">
         <columns>
           <TableColumn fx:id="authorCol" prefWidth="112.79998779296875" text="Author" />
           <TableColumn fx:id="nameCol" prefWidth="116.79998779296875" text="Name" />
@@ -23,10 +23,17 @@
             <TableColumn fx:id="deleteBtnCol" prefWidth="119.99990844726562" text="Delete" />
         </columns>
       </TableView>
-      <Button fx:id="addNewBookBtn" layoutX="588.0" layoutY="244.0" mnemonicParsing="false" onAction="#onHandleAddNewBook" prefHeight="26.0" prefWidth="87.0" style="-fx-background-color: #F78F28; -fx-border-color: black; -fx-text-fill: white; -fx-font-weight: bold;" text="Add" />
+      <Button fx:id="addNewBookBtn" layoutX="588.0" layoutY="251.0" mnemonicParsing="false" onAction="#onHandleAddNewBook" prefHeight="26.0" prefWidth="87.0" style="-fx-background-color: #F78F28; -fx-border-color: black; -fx-text-fill: white; -fx-font-weight: bold;" text="Add" />
       <TextField fx:id="bookNameInput" layoutX="557.0" layoutY="126.0" />
-      <TextField fx:id="authorNameInput" layoutX="557.0" layoutY="196.0" />
+      <TextField fx:id="authorNameInput" layoutX="559.0" layoutY="187.0" />
+      <Label layoutX="560.0" layoutY="163.0" style="-fx-font-weight: bold;" text="Author name" />
       <Label layoutX="560.0" layoutY="100.0" style="-fx-font-weight: bold;" text="Book name " />
-      <Label layoutX="560.0" layoutY="171.0" style="-fx-font-weight: bold;" text="Author name" />
+      <Label layoutX="560.0" layoutY="304.0" style="-fx-font-weight: bold;" text="Book name " />
+      <TextField fx:id="bookNameEditInput" layoutX="557.0" layoutY="329.0" />
+      <TextField fx:id="bookAuthorEditInput" layoutX="557.0" layoutY="395.0" />
+      <Label layoutX="560.0" layoutY="369.0" style="-fx-font-weight: bold;" text="Author name" />
+      <Button fx:id="editBookBtn" layoutX="588.0" layoutY="454.0" mnemonicParsing="false" onAction="#onHandleEditBook" prefHeight="26.0" prefWidth="87.0" style="-fx-background-color: #F78F28; -fx-border-color: black; -fx-text-fill: white; -fx-font-weight: bold;" text="Edit" />
+      <Label fx:id="errAddNewBook" layoutX="560.0" layoutY="222.0" style="-fx-text-fill: red;" />
+      <Label fx:id="errEditBook" layoutX="559.0" layoutY="427.0" style="-fx-text-fill: red;" />
    </children>
 </AnchorPane>

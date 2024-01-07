@@ -1,11 +1,13 @@
 package pl.bilskik.viewmodel;
 
+import com.google.gson.JsonArray;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -29,6 +31,8 @@ public class RegisterController {
     public TextField loginField;
     @FXML
     public TextField passwordField;
+    @FXML
+    public Label errLogin;
 
     private Auth auth;
     private SceneSwitcher sceneSwitcher;
@@ -82,14 +86,27 @@ public class RegisterController {
     }
 
     private void jwtResolver(ActionEvent event, HttpResponse<String> res) throws IOException {
-        JSONObject json = new JSONObject(res.body());
-        String jwt = json.getString("jwt");
-        if(jwt == null || jwt.equals("")) {
-            throw new IllegalAccessError("No Access to this resources!");
-        } else {
-            auth.setJwt(jwt);
-            sceneSwitcher.switchScene(event, "MainView.fxml");
+        JSONObject json = null;
+        try {
+            json = new JSONObject(res.body());
+        } catch(Exception e) {
+            errLogin.setText("Bad credentials!");
+            e.printStackTrace();
         }
+        if (json != null) {
+            String jwt = json.getString("jwt");
+            if(jwt == null || jwt.equals("")) {
+                errLogin.setText("Bad credentials!");
+                throw new IllegalAccessError("No Access to this resources!");
+            } else {
+                errLogin.setText("");
+                auth.setJwt(jwt);
+                sceneSwitcher.switchScene(event, "MainView.fxml");
+            }
+        } else {
+            errLogin.setText("Bad credentials!");
+        }
+
     }
 
     private void switchScene(ActionEvent event) throws IOException {

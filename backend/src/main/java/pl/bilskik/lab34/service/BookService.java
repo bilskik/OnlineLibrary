@@ -39,8 +39,7 @@ public class BookService {
         }
     }
 
-    public String updateBook(BookDTO bookdto) {
-        Book book = modelMapper.map(bookdto, Book.class);
+    public String updateBook(Book book) {
         if(book != null) {
             bookRepository.save(book);
             return "UPDATED";

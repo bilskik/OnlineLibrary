@@ -8,20 +8,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.util.Callback;
-import org.json.JSONObject;
 import pl.bilskik.DI.DI;
 import pl.bilskik.DI.DIContainer;
 import pl.bilskik.model.Book;
 
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 
@@ -49,7 +43,9 @@ public class TableService {
         return bookList;
     }
 
-    public Callback<TableColumn<Book, Void>, TableCell<Book, Void>> getEditCellFactory() {
+    public Callback<TableColumn<Book, Void>, TableCell<Book, Void>> getEditCellFactory(
+            TextField bookNameInpt, TextField bookAuthorInpt, ObservableList<Book> data
+    ) {
         Callback<TableColumn<Book, Void>, TableCell<Book, Void>> cellFactory =
                 new Callback<TableColumn<Book, Void>, TableCell<Book, Void>>() {
 
@@ -61,7 +57,14 @@ public class TableService {
                             {
                                 btn.setOnAction((ActionEvent event) -> {
                                     Book book = getTableView().getItems().get(getIndex());
-                                    System.out.println("selectedData: " + book.getBookId() + " name " + book.getName());
+                                    bookNameInpt.setText(book.getName());
+                                    bookAuthorInpt.setText(book.getAuthor());
+                                    for(var b : data) {
+                                        if(b.isEdited()) {
+                                            b.setEdited(false);
+                                        }
+                                    }
+                                    book.setEdited(true);
                                 });
                             }
                             {
@@ -98,9 +101,8 @@ public class TableService {
                             {
                                 btn.setOnAction((ActionEvent event) -> {
                                     Book book = getTableView().getItems().get(getIndex());
-                                    boolean isDeleted = deleteBookOnServer(book);
+                                    deleteBookOnServer(book);
                                     data.remove(book);
-                                    System.out.println("selectedData: " + book.getBookId() + " name " + book.getName());
                                 });
                             }
                             {
@@ -124,24 +126,6 @@ public class TableService {
         return cellFactory;
     }
 
-    private boolean updateBookOnServer(Book book) {
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name", book.getName());
-        jsonObject.put("author", book.getAuthor());
-        HttpResponse<String> res = null;
-        try {
-            res = httpService
-                    .createPUTRequestWithJwt(
-                            new URI(serverUrl + "/book"), HttpRequest.BodyPublishers.ofString(jsonObject.toString())
-                    );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return res != null && res.statusCode() == 200;
-    }
-
     private boolean deleteBookOnServer(Book book) {
         HttpResponse<String> res = null;
         try {
@@ -155,21 +139,4 @@ public class TableService {
         return res != null && res.statusCode() == 200;
     }
 
-    public void centerCell(TableColumn<Book, String> col) {
-        col.setCellFactory(new Callback<TableColumn<Book, String>, TableCell<Book, String>>() {
-            @Override
-            public TableCell<Book, String> call(TableColumn<Book, String> p) {
-                TableCell<Book, String> tc = new TableCell<Book, String>(){
-                    @Override
-                    public void updateItem(String item, boolean empty) {
-                        if (item != null){
-                            setText(item);
-                        }
-                    }
-                };
-                tc.setAlignment(Pos.CENTER);
-                return tc;
-            }
-        });
-    }
 }

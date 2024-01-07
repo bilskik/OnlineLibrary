@@ -13,4 +13,5 @@ public class Book {
     private int bookId;
     private String name;
     private String author;
+    private boolean isEdited = false;
 }
