@@ -7,7 +7,6 @@ import pl.bilskik.lab34.repository.BookRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 public class BookService {
@@ -21,12 +20,8 @@ public class BookService {
     }
 
     public Book getBookById(Long bookId) {
-        Optional<Book> book = bookRepository.findById(bookId);
-        if(book.isPresent()) {
-            return book.get();
-        } else {
-            throw new NoSuchElementException("There is no book with this ID!");
-        }
+        return bookRepository.findById(bookId)
+                .orElseThrow(() -> new NoSuchElementException("There is no book with this ID!"));
     }
 
     public List<Book> getAllBooks() {

@@ -16,6 +16,7 @@ import pl.bilskik.lab34.entity.User;
 import pl.bilskik.lab34.repository.BookRepository;
 import pl.bilskik.lab34.repository.UserRepository;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Configuration
@@ -29,15 +30,9 @@ public class AuthConfig {
     }
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> {
-            Optional<User> user = userRepository.findByUsername(username);
-            System.out.println(user.isEmpty());
-            if(user.isEmpty()) {
-                throw new UsernameNotFoundException("Could not find user!");
-            } else {
-                return user.get();
-            }
-        };
+        return username -> userRepository.findByUsername(username).orElseThrow(() -> {
+            throw new UsernameNotFoundException("Could not find user!");
+        });
     }
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {

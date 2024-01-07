@@ -2,7 +2,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #f8f9fd;
+    background-color: var(--library-bckg-color);
 }
 .book-table {
     color : white;
@@ -19,7 +19,7 @@
     padding: 20px 0px;
 }
 .gray {
-    background-color: #f8f9fd;
+    background-color: var(--library-bckg-color);
 }
 .white {
     background-color: white;
