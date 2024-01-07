@@ -4,6 +4,25 @@
     background-color: var(--bckg-color);
     display: flex;
     flex-direction: row;
+    color:  var(--login-color);
+}
+.navbar-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.language-choice, .theme-choice {
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-right: 30px;
+}
+.curr-theme-choice {
+    font-size: 1.1rem;
+    font-weight: bold;
+} 
+.curr-choice {
+    font-size: 1.1rem;
+    font-weight: bold;
 }
 .library-text {
     color : var(--login-color);
@@ -12,7 +31,6 @@
 .logout {
     font-size: 1rem;
     font-weight: bold;
-    color:  var(--login-color);
     padding: 13px 13px;
     background-color: var(--default-btn-color);
     border: 1px solid black;
@@ -27,10 +45,21 @@
     .navbar {
         min-height: 60px;
     }
+    .navbar-right {
+        margin-right: 5px;
+    }
+    .language-choice, .theme-choice {
+        margin-right: 15px; 
+        font-size: 0.6rem;
+    }
+    .curr-choice {
+        font-size: 0.8rem;
+    }
     .logout {
         font-size: 0.9rem;
         padding: 6px 13px;
     }
+    
 }
 @media screen and (max-width: 400px) {
     .book-table {

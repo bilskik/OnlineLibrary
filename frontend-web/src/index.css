@@ -22,4 +22,7 @@ code {
   --default-btn-color : #F78F28;
   --hover-btn-color : #D36D09;
   --library-bckg-color : #f8f9fd;
+
+  -bckg-dashboard-light : #f8f9fd;
+  -back-dashboard-dark : #252526;
 }

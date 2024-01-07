@@ -3,6 +3,8 @@ import axios from '../../axios/axios';
 import { AuthContext } from '../../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import "./login.css"
+import { UserSettingsContext } from '../../context/UserSettingsProvider';
+import { resolveData } from '../../service/resolveData';
 
 type UserType = {
     username : string,
@@ -25,6 +27,8 @@ const Login = () => {
     const [page, setPage] = useState({ isLogin : true });
     const { login } = useContext(AuthContext);
     const nav = useNavigate();
+    const { lang, theme } = useContext(UserSettingsContext);
+    const data = resolveData(lang);
 
     const handleOnLogin = (e : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
@@ -65,7 +69,7 @@ const Login = () => {
             setErr(prev => ({
                 ...prev,
                 isUserErr : true,
-                errUserMsg : "Username is blank!"
+                errUserMsg : data.blankUsernameError ? data.blankUsernameError : ""
             }))
             isErr = true;
         } else {
@@ -80,7 +84,7 @@ const Login = () => {
             setErr(prev => ({
                 ...prev,
                 isPassErr : true,
-                errPassMsg : "Password is blank!"
+                errPassMsg : data.blankPasswordError ? data.blankPasswordError : ""
             }))
             isErr = true;
         } else {
@@ -98,12 +102,12 @@ const Login = () => {
         <form className='form-container'>
             <h2 className="login-header">
                {
-                    page.isLogin ? <>Login</> : <>Register</> 
+                    page.isLogin ? ( data.loginTitle ) : ( data.registerTitle ) 
                }
             </h2>
             <div className='form-group-user'>
                 <label id="user">
-                    User
+                    { data.user }
                 </label>
                 <input
                     id='user'
@@ -118,7 +122,7 @@ const Login = () => {
             </div>
             <div className='form-group-password'>
                 <label htmlFor='password'>
-                    Password
+                    { data.password }
                 </label>
                 <input
                     id='password'
@@ -132,11 +136,11 @@ const Login = () => {
                 }
                 {
                     page.isLogin ?               
-                    <p className='register-acc'>Need an account? 
-                        <span onClick={(e) => { setPage({ isLogin : false}); setUser(initUser); setErr(initErr)}}>REGISTER HERE</span>
+                    <p className='register-acc'>{ data.needAnAcc }
+                        <span onClick={(e) => { setPage({ isLogin : false}); setUser(initUser); setErr(initErr)}}>{ data.goToRegister }</span>
                     </p> :
-                    <p className='register-acc'>Already have an account? 
-                        <span onClick={(e) => { setPage({ isLogin : true}); setUser(initUser); setErr(initErr) }}>LOGIN HERE</span>
+                    <p className='register-acc'>{ data.alreadyHaveAnAcc }
+                        <span onClick={(e) => { setPage({ isLogin : true}); setUser(initUser); setErr(initErr) }}>{ data.goToLogin }</span>
                     </p> 
                 }
 
@@ -144,14 +148,13 @@ const Login = () => {
             {
                 page.isLogin ? 
                 <button onClick={(e) => handleOnLogin(e)}>
-                    LOGIN
+                    { data.loginBtn }
                 </button>
                 :
                 <button onClick={(e) => handleOnRegister(e)}>
-                    REGISTER
+                    { data.registerBtn }
                 </button>
             }
-
         </form>
     </div>
     )
