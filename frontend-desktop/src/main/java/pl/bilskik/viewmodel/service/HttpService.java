@@ -28,7 +28,10 @@ public class HttpService {
         HttpRequest request = reqBuilder(true, "GET", uri, null);
         return sendRequest(request);
     }
-
+    public HttpResponse<String> createPOSTRequestWithJwt(URI uri, HttpRequest.BodyPublisher bodyPublisher) {
+        HttpRequest request = reqBuilder(true, "POST", uri, bodyPublisher);
+        return sendRequest(request);
+    }
     public HttpResponse<String> createPUTRequestWithJwt(URI uri, HttpRequest.BodyPublisher bodyPublisher) {
         HttpRequest request = reqBuilder(true, "PUT", uri, bodyPublisher);
         return sendRequest(request);
@@ -118,6 +121,7 @@ public class HttpService {
             throw new RuntimeException("Method not supported!");
         }
     }
+
 
 
 }

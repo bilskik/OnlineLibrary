@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import pl.bilskik.DI.DI;
 import pl.bilskik.DI.DIContainer;
 import pl.bilskik.model.Auth;
-import pl.bilskik.viewmodel.SceneSwitcher;
+import pl.bilskik.viewmodel.service.SceneSwitcher;
 import pl.bilskik.viewmodel.service.HttpService;
 import pl.bilskik.viewmodel.service.TableService;
 

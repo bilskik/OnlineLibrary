@@ -1,10 +1,5 @@
 package pl.bilskik.viewmodel;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +19,7 @@ import javafx.stage.Stage;
 import org.json.JSONObject;
 import pl.bilskik.DI.DIContainer;
 import pl.bilskik.model.Auth;
+import pl.bilskik.viewmodel.service.SceneSwitcher;
 
 public class RegisterController {
 

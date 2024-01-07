@@ -7,6 +7,7 @@ import com.google.gson.JsonArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -57,12 +58,14 @@ public class TableService {
                         final TableCell<Book, Void> cell = new TableCell<Book, Void>() {
 
                             private final Button btn = new Button("Edit");
-
                             {
                                 btn.setOnAction((ActionEvent event) -> {
                                     Book book = getTableView().getItems().get(getIndex());
                                     System.out.println("selectedData: " + book.getBookId() + " name " + book.getName());
                                 });
+                            }
+                            {
+                                btn.setStyle("-fx-background-color: #F78F28; -fx-text-fill: #fff; -fx-font-weight: bold");
                             }
 
                             @Override
@@ -75,6 +78,7 @@ public class TableService {
                                 }
                             }
                         };
+                        cell.setAlignment(Pos.CENTER);
                         return cell;
                     }
                 };
@@ -99,6 +103,9 @@ public class TableService {
                                     System.out.println("selectedData: " + book.getBookId() + " name " + book.getName());
                                 });
                             }
+                            {
+                                btn.setStyle("-fx-background-color: #F78F28; -fx-text-fill: #fff; -fx-font-weight: bold");
+                            }
 
                             @Override
                             public void updateItem(Void item, boolean empty) {
@@ -110,6 +117,7 @@ public class TableService {
                                 }
                             }
                         };
+                        cell.setAlignment(Pos.CENTER);
                         return cell;
                     }
                 };
@@ -145,5 +153,23 @@ public class TableService {
             e.printStackTrace();
         }
         return res != null && res.statusCode() == 200;
+    }
+
+    public void centerCell(TableColumn<Book, String> col) {
+        col.setCellFactory(new Callback<TableColumn<Book, String>, TableCell<Book, String>>() {
+            @Override
+            public TableCell<Book, String> call(TableColumn<Book, String> p) {
+                TableCell<Book, String> tc = new TableCell<Book, String>(){
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        if (item != null){
+                            setText(item);
+                        }
+                    }
+                };
+                tc.setAlignment(Pos.CENTER);
+                return tc;
+            }
+        });
     }
 }

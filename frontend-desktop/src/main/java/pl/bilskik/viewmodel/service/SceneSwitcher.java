@@ -1,4 +1,4 @@
-package pl.bilskik.viewmodel;
+package pl.bilskik.viewmodel.service;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
